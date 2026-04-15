@@ -1,0 +1,8 @@
+name: 'DrupalEasy AI tools'
+type: module
+description: 'Various helpful AI tools for use with AI agents.'
+package: DrupalEasy
+core_version_requirement: ^10 || ^11
+dependencies:
+  - ai_agents:ai_agents
+  - eca:eca
