@@ -75,7 +75,7 @@ class GeoapifyGeocodeAction extends ConfigurableActionBase {
     $form['output_key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Token name for results'),
-      '#description' => $this->t('Results available as <code>[token_name:formatted]</code>, <code>[token_name:lat]</code>, <code>[token_name:lon]</code>, <code>[token_name:name]</code>, <code>[token_name:city]</code>, <code>[token_name:state]</code>, <code>[token_name:country]</code>, <code>[token_name:postcode]</code>.'),
+      '#description' => $this->t('Results available as <code>[token_name:formatted]</code>, <code>[token_name:lat]</code>, <code>[token_name:lon]</code>, <code>[token_name:name]</code>, <code>[token_name:city]</code>, <code>[token_name:state]</code>, <code>[token_name:state_code]</code>, <code>[token_name:country]</code>, <code>[token_name:country_code]</code>, <code>[token_name:postcode]</code>.'),
       '#default_value' => $this->configuration['output_key'],
       '#required' => TRUE,
     ];
@@ -135,8 +135,8 @@ class GeoapifyGeocodeAction extends ConfigurableActionBase {
           'lat'       => (string) ($place['lat'] ?? ''),
           'lon'       => (string) ($place['lon'] ?? ''),
           'city'      => $place['city'] ?? '',
-          'state'     => $place['state'] ?? '',
-          'country'   => $place['country'] ?? '',
+          'state'     => $place['state_code'] ?? '',
+          'country'   => $place['country_code'] ?? '',
           'postcode'  => $place['postcode'] ?? '',
           'street'    => $place['street'] ?? '',
         ]);
