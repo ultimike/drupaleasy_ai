@@ -1,0 +1,11 @@
+{
+    "name": "drupal/drupaleasy_ai_tools",
+    "type": "drupal-module",
+    "description": "Provides plugins related to DrupalEasy's 'Responsible Drupal AI Basics' lessons.",
+    "homepage": "http://drupal.org/project/drupaleasy_ai_tools",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": "^8.0",
+        "drupal/ai": "^1.3"
+    }
+}
