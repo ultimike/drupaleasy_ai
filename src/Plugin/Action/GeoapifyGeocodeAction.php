@@ -136,7 +136,8 @@ class GeoapifyGeocodeAction extends ConfigurableActionBase {
           'lon'       => (string) ($place['lon'] ?? ''),
           'city'      => $place['city'] ?? '',
           'state'     => $place['state_code'] ?? '',
-          'country'   => $place['country_code'] ?? '',
+          'country'   => $place['country'] ?? '',
+          'country_code'   => mb_strtoupper($place['country_code']) ?? '',
           'postcode'  => $place['postcode'] ?? '',
           'street'    => $place['street'] ?? '',
         ]);
