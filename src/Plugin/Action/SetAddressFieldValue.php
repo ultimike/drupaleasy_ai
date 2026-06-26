@@ -10,6 +10,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\eca\Attribute\EcaAction;
 use Drupal\eca\Plugin\Action\ConfigurableActionBase;
 use Drupal\eca_field_widget_actions\Event\FieldWidgetEvent;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Sets all sub-properties of an Address field widget value in one action.
@@ -29,6 +30,20 @@ use Drupal\eca_field_widget_actions\Event\FieldWidgetEvent;
   version_introduced: '1.0.0',
 )]
 class SetAddressFieldValue extends ConfigurableActionBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(
+    ContainerInterface $container,
+    array $configuration,
+    mixed $plugin_id,
+    mixed $plugin_definition,
+  ): static {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->setMessenger($container->get('messenger'));
+    return $instance;
+  }
 
   /**
    * {@inheritdoc}
@@ -67,7 +82,7 @@ class SetAddressFieldValue extends ConfigurableActionBase {
 
     if (empty($address_values)) {
       $this->logger->warning('SetAddressFieldValue: no address values resolved after token replacement.');
-      \Drupal::messenger()->addWarning($this->t('No address data found.'));
+      $this->messenger()->addWarning($this->t('No address data found.'));
       return;
     }
 

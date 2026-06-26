@@ -10,6 +10,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\eca\Attribute\EcaAction;
 use Drupal\eca\Plugin\Action\ConfigurableActionBase;
 use Drupal\eca_field_widget_actions\Event\FieldWidgetEvent;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Sets all sub-properties of a Link field widget value in one action.
@@ -29,6 +30,20 @@ use Drupal\eca_field_widget_actions\Event\FieldWidgetEvent;
   version_introduced: '1.0.0',
 )]
 class SetLinkFieldValue extends ConfigurableActionBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(
+    ContainerInterface $container,
+    array $configuration,
+    mixed $plugin_id,
+    mixed $plugin_definition,
+  ): static {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->setMessenger($container->get('messenger'));
+    return $instance;
+  }
 
   /**
    * {@inheritdoc}
@@ -57,7 +72,7 @@ class SetLinkFieldValue extends ConfigurableActionBase {
 
     if (empty($link_values)) {
       $this->logger->warning('SetLinkFieldValue: no link values resolved after token replacement.');
-      \Drupal::messenger()->addWarning($this->t('No link data found.'));
+      $this->messenger()->addWarning($this->t('No link data found.'));
       return;
     }
 
